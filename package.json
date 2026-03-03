@@ -1,0 +1,24 @@
+{
+  "name": "youtube-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/digvijay-555/youtube-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/digvijay-555/youtube-backend/issues"
+  },
+  "homepage": "https://github.com/digvijay-555/youtube-backend#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1"
+  }
+}
