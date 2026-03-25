@@ -12,8 +12,8 @@ const jwt = pkg;
 const generateAccessAndRefreshToken = async(userId) => {
     try {
         const user = await User.findById(userId)
-        const accessToken = user.generateAccessToken();
-        const refreshToken = user.generateRefreshToken();
+        const accessToken = await user.generateAccessToken();
+        const refreshToken = await user.generateRefreshToken();
         
         user.refreshToken = refreshToken;
         await user.save({validateBeforeSave: false});
@@ -26,12 +26,13 @@ const generateAccessAndRefreshToken = async(userId) => {
 
 const registerUser = asyncHandler(async (req, res) =>{
     const {fullName, email, username, password} = req.body;
-    console.log("email: ", email);
+    
 
     if(!fullName || !email || !username || !password){
         throw new ApiError( 400, "All fields are required");
     }
 
+    console.log("Registration request body: ", req.body);
     // const existingUser = await User.findOne({
     //     $or: [{ username }, { email }]
     // });
@@ -60,8 +61,12 @@ const registerUser = asyncHandler(async (req, res) =>{
         username: username.toLowerCase(),
         password,
         avatar: avatar.url,
-        coverImage: coverImage ? coverImage.url : null
+        coverImage: coverImage ? coverImage.url : null,
+        refreshToken: undefined
     });
+
+    // user.refreshToken = user.generateRefreshToken();
+    // await user.save({validateBeforeSave: false});
 
     const createdUser = await User.findById(user._id).select("-password -refreshToken ");
     console.log("createdUser: ", createdUser);
